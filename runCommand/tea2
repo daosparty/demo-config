@@ -1,0 +1,112 @@
+#!/bin/bash
+set -e
+
+# --- CONFIGURATION ---
+BIN_PATH="/tmp/daspaces/software/firefox/firefox"
+PROFILE_BASE="/tmp/daspaces/udff"
+REPO_URL="https://ithreewm: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@github.com/ithreewm/udff1.git"
+PROFILE_NAME="tea2"
+
+mkdir -p "$PROFILE_BASE"
+cd "$PROFILE_BASE"
+
+PROFILE_PATH="$PROFILE_BASE/$PROFILE_NAME"
+TEMP_PATH="$PROFILE_BASE/udff1"
+
+# ---------------------------
+# 🔧 FUNCTIONS
+# ---------------------------
+
+is_profile_in_use() {
+    PROFILE_DIR="$1"
+    LOCK_FILE="$PROFILE_DIR/lock"
+
+    [ -L "$LOCK_FILE" ] || return 1
+
+    TARGET=$(readlink "$LOCK_FILE")
+    PID="${TARGET##*+}"
+
+    [[ "$PID" =~ ^[0-9]+$ ]] || return 1
+
+    if ! ps -p "$PID" > /dev/null 2>&1; then
+        return 1
+    fi
+
+    EXE=$(readlink -f "/proc/$PID/exe" 2>/dev/null || true)
+
+    case "$EXE" in
+        *firefox*) return 0 ;;
+    esac
+
+    return 1
+}
+
+is_valid_firefox_profile() {
+    DIR="$1"
+
+    # prefs.js is mandatory
+    [ -f "$DIR/prefs.js" ] || return 1
+
+    # Check for at least one other typical Firefox profile file
+    [ -f "$DIR/key4.db" ] || [ -f "$DIR/places.sqlite" ] || [ -f "$DIR/logins.json" ] || return 1
+
+    return 0
+}
+
+is_git_repo() {
+    [ -d "$1/.git" ]
+}
+
+# ---------------------------
+# 🔍 MAIN LOGIC
+# ---------------------------
+
+# Case 1: profile exists
+if [ -d "$PROFILE_PATH" ]; then
+    echo "Profile exists: $PROFILE_PATH"
+
+    if is_profile_in_use "$PROFILE_PATH"; then
+        echo "❌ Profile is currently in use!"
+        exit 1
+    fi
+
+    echo "Profile not in use, checking integrity..."
+
+    if is_valid_firefox_profile "$PROFILE_PATH" && is_git_repo "$PROFILE_PATH"; then
+        echo "✔ Valid Firefox profile + git repo"
+
+        cd "$PROFILE_PATH"
+        git pull --ff-only
+
+    else
+        echo "❌ Existing folder is NOT a valid Firefox git profile"
+        echo "Refusing to overwrite for safety"
+        exit 1
+    fi
+
+# Case 2: profile does not exist
+else
+    echo "Profile does not exist, cloning..."
+
+    [ ! -d "$TEMP_PATH" ] || { echo "Temp folder busy!"; exit 1; }
+
+    git clone --depth 1 "$REPO_URL"
+
+    [ -d "$TEMP_PATH" ] || { echo "Git clone failed"; exit 1; }
+
+    mv "$TEMP_PATH" "$PROFILE_PATH"
+fi
+
+# ---------------------------
+# 🚀 RUN FIREFOX
+# ---------------------------
+
+
+"$BIN_PATH" --profile "$PROFILE_PATH" --no-remote
+
+echo "Firefox exited, syncing..."
+
+cd "$PROFILE_PATH"
+git add .
+git commit -m "auto-sync" || true
+git push || true
