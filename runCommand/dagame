@@ -4,7 +4,7 @@ set -e
 # --- CONFIGURATION ---
 BIN_PATH="/tmp/daspaces/software/firefox/firefox"
 PROFILE_BASE="/tmp/daspaces/udff"
-REPO_URL="https://quitegame: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@github.com/quitegame/udff1.git"
+REPO_URL="https://quitegame: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@github.com/quitegame/udff1.git"
 PROFILE_NAME="dagame"
 
 mkdir -p "$PROFILE_BASE"
