@@ -6,7 +6,7 @@ LOG="/var/log/daos/democonfig.log"
 
 echo "1" > "$LOG"
 
-xset dpms 60 60 60
+xset dpms 60 60 60 || echo "xset failed - likely no X11 connection" >> "$LOG"
 modprobe fuse || echo "fuse failed" >> "$LOG"
 
 echo "2" >> "$LOG"
