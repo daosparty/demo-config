@@ -1,0 +1,12 @@
+#!/bin/bash
+set -e
+
+# --- CONFIGURATION ---
+BIN_PATH="/tmp/daspaces/software/firefox/firefox"
+PROFILE_BASE="/tmp/daspaces/udff"
+PROFILE_NAME="temp"
+PROFILE_PATH="$PROFILE_BASE/$PROFILE_NAME"
+
+mkdir -p "$PROFILE_PATH"
+
+"$BIN_PATH" --profile "$PROFILE_PATH" --no-remote &
