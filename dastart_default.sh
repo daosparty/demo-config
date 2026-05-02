@@ -11,7 +11,6 @@ modprobe fuse || echo "fuse failed" >> "$LOG"
 
 echo "2" >> "$LOG"
 
-apt update
 apt install -y git curl xclip ripgrep fd-find
 
 # download neovim
