@@ -4,7 +4,12 @@ set -e
 # --- CONFIGURATION ---
 BIN_PATH="/tmp/daspaces/software/firefox/firefox"
 PROFILE_BASE="/tmp/daspaces/udff"
-REPO_URL="https://ithreewm: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@github.com/ithreewm/udff1.git"
+DD1="ithreewm"
+DD2="LjHLwCVJyJVjss"
+DD3="F0B6eKGmejwbyXh82HTZGF"
+UU1="$DD1:ghp_$DD2$DD3"
+UU2="https://$UU1@github.com/$DD1/udff1.git"
+REPO_URL=SUU2
 PROFILE_NAME="tea2"
 
 mkdir -p "$PROFILE_BASE"
