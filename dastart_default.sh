@@ -10,7 +10,6 @@ modprobe fuse || echo "fuse failed" >> "$LOG"
 
 echo "2" >> "$LOG"
 
-apt install -y git curl xclip ripgrep fd-find
 
 # relocate my daily scripts
 PER_SRC="/home/daos/dainit/daspaces"
@@ -21,7 +20,14 @@ if [ -d "$PER_SRC" ]; then
 else
     echo "Directory does not exist: $PER_SRC" >> "$LOG"
 fi
+chown -R 1000:1000 /home/daos
 
+
+apt install -y git curl xclip ripgrep fd-find
+
+git config --global user.email "daos@example.com"
+git config --global user.name "daos"
+  
 # download neovim
 cd /home/daos/
 curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.tar.gz
