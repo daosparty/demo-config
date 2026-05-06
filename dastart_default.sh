@@ -25,8 +25,12 @@ chown -R 1000:1000 /home/daos
 
 apt install -y git curl xclip ripgrep fd-find
 
-git config --global user.email "daos@example.com"
-git config --global user.name "daos"
+GITCONFIG="/home/da/.gitconfig"
+cat > "$GITCONFIG" <<EOF
+[user]
+    name = "daos"
+    email = "daos@dage.party"
+EOF
   
 # download neovim
 cd /home/daos/
