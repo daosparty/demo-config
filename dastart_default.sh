@@ -20,7 +20,6 @@ if [ -d "$PER_SRC" ]; then
 else
     echo "Directory does not exist: $PER_SRC" >> "$LOG"
 fi
-chown -R 1000:1000 /home/daos
 
 
 apt install -y git curl xclip ripgrep fd-find
