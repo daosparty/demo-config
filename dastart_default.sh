@@ -31,17 +31,23 @@ cat > "$GITCONFIG" <<EOF
     name = daos
     email = daos@dage.party
 EOF
+chown 1000:1000 "$GITCONFIG"
+chmod 644 "$GITCONFIG"
   
 # download neovim
 cd /home/daos/
 curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.tar.gz
 tar xzf nvim-linux-x86_64.tar.gz
 
-mv nvim-linux-x86_64.appimage /usr/local/bin/nvim.appimage
 ln -sf /usr/local/bin/nvim.appimage /usr/local/bin/nvim
 
-# LazyVim
-git clone --depth=1 https://github.com/LazyVim/starter ~/.config/nvim
-rm -rf ~/.config/nvim/.git
+if git clone --depth=1 https://github.com/LazyVim/starter /home/da/.config/nvim; then
+    rm -rf /home/da/.config/nvim/.git
+    chown -R 1000:1000 /home/da/.config
+else
+    echo "nvim config clone error" >> "$LOG"
+fi
 
+
+chown -R 1000:1000 /home/daos
 echo "3" >> "$LOG"
