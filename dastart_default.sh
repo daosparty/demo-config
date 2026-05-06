@@ -51,3 +51,7 @@ fi
 
 chown -R 1000:1000 /home/daos
 echo "3" >> "$LOG"
+
+cp /home/daos/default/runCommand/* /home/daos/runCommand/
+chmod +x /home/daos/runCommand/*
+
