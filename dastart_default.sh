@@ -28,8 +28,8 @@ apt install -y git curl xclip ripgrep fd-find
 GITCONFIG="/home/da/.gitconfig"
 cat > "$GITCONFIG" <<EOF
 [user]
-    name = "daos"
-    email = "daos@dage.party"
+    name = daos
+    email = daos@dage.party
 EOF
   
 # download neovim
