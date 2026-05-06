@@ -30,7 +30,6 @@ cat > "$GITCONFIG" <<EOF
     name = daos
     email = daos@dage.party
 EOF
-chown 1000:1000 "$GITCONFIG"
 chmod 644 "$GITCONFIG"
   
 # download neovim
@@ -47,10 +46,6 @@ else
     echo "nvim config clone error" >> "$LOG"
 fi
 
-
-chown -R 1000:1000 /home/daos
-echo "3" >> "$LOG"
-
 cp /home/daos/default/runCommand/* /home/daos/runCommand/
 chmod +x /home/daos/runCommand/*
 
@@ -58,5 +53,10 @@ if ! feh --bg-scale /usr/share/wallpaper/daos.jpg >/dev/null 2>>"$LOG"; then
   echo "[ERROR] feh failed to set wallpaper" >>"$LOG"
 fi
 
+
+
+chown -R 1000:1000 /home/daos
+chown -R 1000:1000 /home/da
+echo "3" >> "$LOG"
 
 
