@@ -59,3 +59,5 @@ if ! feh --bg-scale /usr/share/wallpaper/daos.jpg >/dev/null 2>>"$LOG"; then
   echo "[ERROR] feh failed to set wallpaper" >>"$LOG"
 fi
 
+
+
