@@ -55,3 +55,7 @@ echo "3" >> "$LOG"
 cp /home/daos/default/runCommand/* /home/daos/runCommand/
 chmod +x /home/daos/runCommand/*
 
+if ! feh --bg-scale /usr/share/wallpaper/daos.jpg >/dev/null 2>>"$LOG"; then
+  echo "[ERROR] feh failed to set wallpaper" >>"$LOG"
+fi
+
