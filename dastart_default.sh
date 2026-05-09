@@ -21,7 +21,7 @@ else
     echo "Directory does not exist: $PER_SRC" >> "$LOG"
 fi
 
-
+{
 GITCONFIG="/home/da/.gitconfig"
 cat > "$GITCONFIG" <<EOF
 [user]
@@ -29,24 +29,34 @@ cat > "$GITCONFIG" <<EOF
     email = daos@dage.party
 EOF
 chmod 644 "$GITCONFIG"
-  
-# download neovim
+} || true
+
+
 cd /home/daos/
 
+{
 cp /home/daos/default/i3/launcher /home/daos/.i3/
 chmod +x /home/daos/.i3/*
+} || true
 
+{
 cp /home/daos/default/runCommand/* /home/daos/runCommand/
 chmod +x /home/daos/runCommand/*
-
-echo "source /home/daos/runCommand/.bashrc" >> /home/da/.bashrc
 
 cat > /home/daos/runCommand/.bashrc <<'EOF'
 export PATH=$PATH:/home/daos/runCommand
 EOF
+} || true
 
+{
+grep -qxF 'source /home/daos/runCommand/.bashrc' /home/da/.bashrc || \
+echo 'source /home/daos/runCommand/.bashrc' >> /home/da/.bashrc
+} || true
+
+{
 curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.tar.gz
 tar xzf nvim-linux-x86_64.tar.gz
+} || true
 
 chown -R 1000:1000 /home/daos
 chown -R 1000:1000 /home/da
