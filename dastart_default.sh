@@ -78,4 +78,14 @@ fi
 
 echo "3" >> "$LOG"
 
+# install chinese font
+{
+mkdir wqy
+curl -LO https://raw.githubusercontent.com/daosparty/fonts/refs/heads/master/wqy/wqy-microhei.ttc
+mv wqy-microhei.ttc wqy
+cp wqy /usr/share/fonts/truetype/ -fr
+} || echo "font install error" >> "$LOG"
+
+
+echo "4" >> "$LOG"
 
