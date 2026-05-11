@@ -22,10 +22,6 @@ else
 fi
 
 {
-    /home/daos/installfont.sh
-} || true
-
-{
 GITCONFIG="/home/da/.gitconfig"
 cat > "$GITCONFIG" <<EOF
 [user]
