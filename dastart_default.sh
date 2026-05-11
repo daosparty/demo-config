@@ -86,6 +86,34 @@ mv wqy-microhei.ttc wqy
 cp wqy /usr/share/fonts/truetype/ -fr
 } || echo "font install error" >> "$LOG"
 
+# include firefox, if it's not exists
+{
+DEST="/tmp/daspaces/software/firefox"
+if [ -x "$DEST/firefox" ]; then
+    cd /home/daos/
+    mkdir firefox
+    cd firefox
+    curl -LO https://raw.githubusercontent.com/daosparty/app-firefox-115/refs/heads/master/ff1
+    curl -LO https://raw.githubusercontent.com/daosparty/app-firefox-115/refs/heads/master/ff2
+    cat ff1 ff2 > firefox.tar.bz2
+    echo "Extracting directly to $DEST..."
+    
+    rm -rf "$DEST"
+    mkdir -p "$DEST"
+    tar -xjf "firefox.tar.bz2" -C "$DEST" --strip-components=1
+    
+    if [ -x "$DEST/firefox" ]; then
+        echo "✔ Firefox binary found and executable"
+    else
+        echo "✘ Error: firefox binary not found in $DEST"
+        exit 1
+    fi
+fi
+} || echo "font install error" >> "$LOG"
+cd /home/daos/
+if [ -f "firefox" ]; then
+    rm -fr firefox
+fi
 
 echo "4" >> "$LOG"
 
