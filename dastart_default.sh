@@ -76,10 +76,9 @@ echo "3" >> "$LOG"
 
 # install chinese font
 {
-mkdir wqy
 curl -LO https://raw.githubusercontent.com/daosparty/fonts/refs/heads/master/wqy/wqy-microhei.ttc
-mv wqy-microhei.ttc wqy
-cp wqy /usr/share/fonts/truetype/ -fr
+mkdir -p /usr/share/fonts/truetype/wqy
+mv  wqy-microhei.ttc /usr/share/fonts/truetype/wqy/
 } || echo "font install error" >> "$LOG"
 
 # install firefox, if it's not exists
@@ -110,6 +109,9 @@ cd /home/daos/
 if [ -d "firefox" ]; then
     rm -fr firefox
 fi
+
+mkdir /workspaces
+mkdir /mnt/p1
 
 echo "4" >> "$LOG"
 
