@@ -101,7 +101,6 @@ if [ ! -x "$DEST/firefox" ]; then
         chown -R 1000:1000 "/tmp/daspaces"
     else
         echo "✘ Error: firefox binary not found in $DEST" >> "$LOG"
-        exit 1
     fi
 fi
 } || echo "firefox install error" >> "$LOG"
