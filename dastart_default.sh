@@ -6,11 +6,6 @@ LOG="/var/log/daos/democonfig.log"
 
 echo "1" > "$LOG"
 
-modprobe fuse || echo "fuse failed" >> "$LOG"
-
-echo "2" >> "$LOG"
-
-
 # relocate my daily scripts
 PER_SRC="/home/daos/dainit/daspaces"
 PER_DEST="/home/daos"
@@ -31,6 +26,7 @@ EOF
 chmod 644 "$GITCONFIG"
 } || true
 
+echo "2" >> "$LOG"
 
 cd /home/daos/
 
