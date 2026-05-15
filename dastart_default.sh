@@ -110,8 +110,8 @@ if [ -d "firefox" ]; then
     rm -fr firefox
 fi
 
-mkdir /workspaces
-mkdir /mnt/p1
+mkdir -p /workspaces
+mkdir -p /mnt/p1
 
 echo "4" >> "$LOG"
 
