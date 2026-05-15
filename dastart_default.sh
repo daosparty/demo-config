@@ -7,7 +7,7 @@ LOG="/var/log/daos/democonfig.log"
 echo "1" > "$LOG"
 
 # relocate my daily scripts
-PER_SRC="/home/daos/dainit/daspaces"
+PER_SRC="/tmp/dainit/daspaces"
 PER_DEST="/home/daos"
 
 if [ -d "$PER_SRC" ]; then
@@ -29,6 +29,7 @@ chmod 644 "$GITCONFIG"
 echo "2" >> "$LOG"
 
 cd /home/daos/
+mkdir -p "runCommand"
 
 {
 cp /home/daos/default/i3/launcher /home/daos/.i3/
