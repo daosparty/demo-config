@@ -11,7 +11,7 @@ fi
 # --- CONFIGURATION ---
 BIN_PATH="/var/daos/zramfs/software/firefox/firefox"
 PROFILE_BASE="/var/daos/zramfs/udff"
-PROFILE_CONFIG_BASE="/home/daos/ffprofile"
+PROFILE_CONFIG_BASE="/home/daos/.config/ffprofile"
 PROFILE_CONFIG="$PROFILE_CONFIG_BASE/$1"
 PROFILE_NAME="$1"
 PROFILE_PATH="$PROFILE_BASE/$PROFILE_NAME"
