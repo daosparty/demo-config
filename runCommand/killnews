@@ -1,0 +1,20 @@
+#!/bin/bash
+
+APP_NAME="newsReader"
+
+PIDS=$(pgrep -f "$APP_NAME")
+
+if [ -z "$PIDS" ]; then
+    echo "No running $APP_NAME found"
+    exit 0
+fi
+
+echo "Killing $APP_NAME: $PIDS"
+kill $PIDS
+
+sleep 1
+
+# force kill if still alive
+pgrep -f "$APP_NAME" >/dev/null && kill -9 $PIDS
+
+echo "Done"
