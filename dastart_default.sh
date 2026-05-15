@@ -39,6 +39,11 @@ cp /home/daos/default/i3/launcher /home/daos/.i3/
 chmod +x /home/daos/.i3/*
 } || true
 
+if [ -f /home/daos/default/ffprofile ]; then
+    mkdir -p /home/daos/.config
+    mv /home/daos/default/ffprofile /home/daos/.config/
+fi
+
 {
 cp /home/daos/default/runCommand/* /home/daos/runCommand/
 chmod +x /home/daos/runCommand/*
