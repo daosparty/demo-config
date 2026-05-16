@@ -68,8 +68,8 @@ curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x8
 tar xzf nvim-linux-x86_64.tar.gz
 } || true
 
-chown -R 1000:1000 "$DISTRO_HOME"
-chown -R 1000:1000 "$MY_HOME"
+chown -R 1000:1000 "$DISTRO_HOME"/
+chown -R 1000:1000 "$MY_HOME"/
 
 
 apt install -y git curl xclip ripgrep fd-find
