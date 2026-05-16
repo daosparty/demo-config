@@ -3,11 +3,11 @@
 set -e
 
 LOG="/var/log/daos/democonfig.log"
-SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &> /dev/null && pwd)
 
 # Define home folders
 DISTRO_HOME="/home/daos"
 MY_HOME="/home/da"
+SCRIPT_DIR="$DISTRO_HOME/default"
 
 mkdir -p /workspaces
 mkdir -p /mnt/p1
