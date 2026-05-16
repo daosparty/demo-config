@@ -9,6 +9,9 @@ SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &> /dev/null && pwd)
 DISTRO_HOME="/home/daos"
 MY_HOME="/home/da"
 
+mkdir -p /workspaces
+mkdir -p /mnt/p1
+
 echo "1" > "$LOG"
 
 # relocate my daily scripts
@@ -117,7 +120,5 @@ if [ -d "firefox" ]; then
     rm -fr firefox
 fi
 
-mkdir -p /workspaces
-mkdir -p /mnt/p1
 
 echo "4" >> "$LOG"
