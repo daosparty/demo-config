@@ -115,15 +115,18 @@ curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x8
 tar xzf nvim-linux-x86_64.tar.gz
 } || true
 
+{
+    apt install -y git curl xclip ripgrep fd-find
+} ||  "apt install git error" >> "$LOG"
 
-apt install -y git curl xclip ripgrep fd-find
-
+{
 if git clone --depth=1 https://github.com/LazyVim/starter "$MY_HOME/.config/nvim"; then
     rm -rf "$MY_HOME/.config/nvim/.git"
     chown -R 1000:1000 "$MY_HOME/.config"
 else
     echo "nvim config clone error" >> "$LOG"
 fi
+} || "LazyVim config clone error" >> "$LOG"
 
 
 chown -R 1000:1000 "$DISTRO_HOME"/
