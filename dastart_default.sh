@@ -117,7 +117,7 @@ tar xzf nvim-linux-x86_64.tar.gz
 
 {
     apt install -y git curl xclip ripgrep fd-find
-} ||  "apt install git error" >> "$LOG"
+} || echo  "apt install git error" >> "$LOG"
 
 {
 if git clone --depth=1 https://github.com/LazyVim/starter "$MY_HOME/.config/nvim"; then
@@ -126,7 +126,7 @@ if git clone --depth=1 https://github.com/LazyVim/starter "$MY_HOME/.config/nvim
 else
     echo "nvim config clone error" >> "$LOG"
 fi
-} || "LazyVim config clone error" >> "$LOG"
+} || echo "LazyVim config clone error" >> "$LOG"
 
 
 chown -R 1000:1000 "$DISTRO_HOME"/
