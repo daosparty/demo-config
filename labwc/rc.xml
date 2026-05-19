@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<labwc_config>
+
+  <!-- Core Window Buffering Layout -->
+  <core>
+    <decoration>server</decoration>
+    <gap>4</gap>
+  </core>
+
+<desktops number="5">
+  <popupTime>0</popupTime>
+  <names>
+    <name>1</name>
+    <name>2</name>
+    <name>3</name>
+    <name>4</name>
+    <name>5</name>
+  </names>
+</desktops>
+
+
+  <!-- Keyboard Shortcuts Interface -->
+  <keyboard>
+
+  <!-- Toggle Maximize/Restore with Super+M -->
+  <keybind key="W-m">
+    <action name="ToggleMaximize" />
+  </keybind>
+
+  <!-- Switch to Workspaces 1 to 5 (Super + Number) -->
+  <keybind key="W-1">
+    <action name="GoToDesktop" to="1" />
+  </keybind>
+  <keybind key="W-2">
+    <action name="GoToDesktop" to="2" />
+  </keybind>
+  <keybind key="W-3">
+    <action name="GoToDesktop" to="3" />
+  </keybind>
+  <keybind key="W-4">
+    <action name="GoToDesktop" to="4" />
+  </keybind>
+  <keybind key="W-5">
+    <action name="GoToDesktop" to="5" />
+  </keybind>
+
+  <!-- Move Current Window to Workspace 1 to 5 (Super + Shift + Number) -->
+  <keybind key="W-S-1">
+    <action name="SendToDesktop" to="1" />
+  </keybind>
+  <keybind key="W-S-2">
+    <action name="SendToDesktop" to="2" />
+  </keybind>
+  <keybind key="W-S-3">
+    <action name="SendToDesktop" to="3" />
+  </keybind>
+  <keybind key="W-S-4">
+    <action name="SendToDesktop" to="4" />
+  </keybind>
+  <keybind key="W-S-5">
+    <action name="SendToDesktop" to="5" />
+  </keybind>
+
+  <keybind key="W-h">
+    <action name="PreviousWindowImmediate" />
+  </keybind>
+  <keybind key="W-l">
+    <action name="NextWindow" />
+  </keybind>
+
+  <!-- Custom Top-Bar Launcher -->
+  <keybind key="W-p">
+    <action name="Execute" command="foot --app-id=launcher-term /home/daos/.labwc/launcher" />
+  </keybind>
+
+    <!-- Press Super + Enter to open your terminal terminal -->
+    <keybind key="W-Return">
+      <action name="Execute" command="foot" />
+    </keybind>
+
+    <!-- Press Super + Q to close the active focused window -->
+    <keybind key="W-S-q">
+      <action name="Close" />
+    </keybind>
+
+    <!-- Press Super + Shift + E to exit Labwc back to the TTY -->
+    <keybind key="W-S-e">
+      <action name="Exit" />
+    </keybind>
+  </keyboard>
+
+
+  <windowRules>
+    <windowRule identifier="launcher-term">
+      <!-- 1. Turn off borders -->
+      <serverDecoration>no</serverDecoration>
+     
+      <action name="ResizeTo" width="500" height="60" />
+      
+      <action name="MoveTo" x="0" y="0" />
+      
+      <skipTaskbar>yes</skipTaskbar>
+      <skipWindowSwitcher>yes</skipWindowSwitcher>
+    </windowRule>
+  </windowRules>
+
+
+</labwc_config>
