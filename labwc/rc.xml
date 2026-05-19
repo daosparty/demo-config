@@ -104,5 +104,13 @@
     </windowRule>
   </windowRules>
 
+  <mouse>
+    <default />
+    <context name="Root">
+      <mousebind button="Left" action="Press">
+	      <action name="None" />
+      </mousebind>
+    </context>
+  </mouse>
 
 </labwc_config>
