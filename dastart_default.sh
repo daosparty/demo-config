@@ -32,7 +32,7 @@ cat > "$GITCONFIG" <<EOF
     email = daos@dage.party
 EOF
 chmod 644 "$GITCONFIG"
-} || true
+} || echo "git user config error" >> "$LOG"
 
 echo "2" >> "$LOG"
 
@@ -40,15 +40,18 @@ cd "$DISTRO_HOME"
 mkdir -p "runCommand"
 
 {
+mkdir -p "$DISTRO_HOME/.labwc/"
 cp "$SCRIPT_DIR/labwc/launcher" "$DISTRO_HOME/.labwc/"
 cp "$SCRIPT_DIR/labwc/rc.xml" "$MY_HOME/.config/labwc/rc.xml"
 chmod +x "$DISTRO_HOME/.labwc/"*
-} || true
+} || echo "labwc config error" >> "$LOG"
 
+{
 if [ -d "$SCRIPT_DIR/ffprofile" ]; then
     mkdir -p "$DISTRO_HOME/.config"
     mv "$SCRIPT_DIR/ffprofile" "$DISTRO_HOME/.config/"
 fi
+} || echo "ffprofile move error" >> "$LOG"
 
 {
 cp "$SCRIPT_DIR/runCommand/"* "$DISTRO_HOME/runCommand/"
@@ -57,31 +60,15 @@ chmod +x "$DISTRO_HOME/runCommand/"*
 cat > "$DISTRO_HOME/runCommand/.bashrc" <<EOF
 export PATH=\$PATH:$DISTRO_HOME/runCommand
 EOF
-} || true
+} || echo "runCommand combine error" >> "$LOG"
 
 {
 grep -qxF "source $DISTRO_HOME/runCommand/.bashrc" "$MY_HOME/.bashrc" || \
 echo "source $DISTRO_HOME/runCommand/.bashrc" >> "$MY_HOME/.bashrc"
 } || true
 
-{
-curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.tar.gz
-tar xzf nvim-linux-x86_64.tar.gz
-} || true
-
 chown -R 1000:1000 "$DISTRO_HOME"/
 chown -R 1000:1000 "$MY_HOME"/
-
-
-apt install -y git curl xclip ripgrep fd-find
-
-if git clone --depth=1 https://github.com/LazyVim/starter "$MY_HOME/.config/nvim"; then
-    rm -rf "$MY_HOME/.config/nvim/.git"
-    chown -R 1000:1000 "$MY_HOME/.config"
-else
-    echo "nvim config clone error" >> "$LOG"
-fi
-
 
 echo "3" >> "$LOG"
 
@@ -121,5 +108,26 @@ if [ -d "firefox" ]; then
     rm -fr firefox
 fi
 
-
 echo "4" >> "$LOG"
+
+{
+curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.tar.gz
+tar xzf nvim-linux-x86_64.tar.gz
+} || true
+
+
+apt install -y git curl xclip ripgrep fd-find
+
+if git clone --depth=1 https://github.com/LazyVim/starter "$MY_HOME/.config/nvim"; then
+    rm -rf "$MY_HOME/.config/nvim/.git"
+    chown -R 1000:1000 "$MY_HOME/.config"
+else
+    echo "nvim config clone error" >> "$LOG"
+fi
+
+
+chown -R 1000:1000 "$DISTRO_HOME"/
+chown -R 1000:1000 "$MY_HOME"/
+
+
+echo "5" >> "$LOG"
