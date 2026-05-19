@@ -40,8 +40,9 @@ cd "$DISTRO_HOME"
 mkdir -p "runCommand"
 
 {
-cp "$SCRIPT_DIR/i3/launcher" "$DISTRO_HOME/.i3/"
-chmod +x "$DISTRO_HOME/.i3/"*
+cp "$SCRIPT_DIR/labwc/launcher" "$DISTRO_HOME/.labwc/"
+cp "$SCRIPT_DIR/labwc/rc.xml" "$MY_HOME/.config/labwc/rc.xml"
+chmod +x "$DISTRO_HOME/.labwc/"*
 } || true
 
 if [ -d "$SCRIPT_DIR/ffprofile" ]; then
