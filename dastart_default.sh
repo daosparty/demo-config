@@ -40,10 +40,11 @@ cd "$DISTRO_HOME"
 mkdir -p "runCommand"
 
 {
-mkdir -p "$DISTRO_HOME/.labwc/"
-cp "$SCRIPT_DIR/labwc/launcher" "$DISTRO_HOME/.labwc/"
+mkdir -p "$DISTRO_HOME/.config/labwc/"
+cp "$SCRIPT_DIR/labwc/launcher" "$DISTRO_HOME/.config/labwc/"
 cp "$SCRIPT_DIR/labwc/rc.xml" "$MY_HOME/.config/labwc/rc.xml"
-chmod +x "$DISTRO_HOME/.labwc/"*
+cp "$SCRIPT_DIR/labwc/menu.xml" "$MY_HOME/.config/labwc/menu.xml"
+chmod +x "$DISTRO_HOME/.config/labwc/"*
 } || echo "labwc config error" >> "$LOG"
 
 {
