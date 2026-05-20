@@ -60,6 +60,7 @@ chmod +x "$DISTRO_HOME/runCommand/"*
 
 cat > "$DISTRO_HOME/runCommand/.bashrc" <<EOF
 export PATH=\$PATH:$DISTRO_HOME/runCommand
+cd /home/daos
 EOF
 } || echo "runCommand combine error" >> "$LOG"
 
