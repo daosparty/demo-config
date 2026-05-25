@@ -41,6 +41,7 @@ mkdir -p "runCommand"
 
 {
 mkdir -p "$DISTRO_HOME/.config/labwc/"
+mkdir -p "$MY_HOME/.config/labwc"
 cp "$SCRIPT_DIR/labwc/launcher" "$DISTRO_HOME/.config/labwc/"
 cp "$SCRIPT_DIR/labwc/rc.xml" "$MY_HOME/.config/labwc/rc.xml"
 cp "$SCRIPT_DIR/labwc/menu.xml" "$MY_HOME/.config/labwc/menu.xml"
@@ -88,10 +89,10 @@ DEST="$DISTRO_HOME/.software/firefox"
 DEST2="/tmp/daspaces/software/firefox"
 if [ ! -x "$DEST/firefox" ]; then
     cd "$DISTRO_HOME"
-    mkdir firefox
+    mkdir -p firefox
     cd firefox
-    curl -LO https://raw.githubusercontent.com/daosparty/app-firefox-115/refs/heads/master/ff1
-    curl -LO https://raw.githubusercontent.com/daosparty/app-firefox-115/refs/heads/master/ff2
+    curl -fLO https://raw.githubusercontent.com/daosparty/app-firefox-115/refs/heads/master/ff1
+    curl -fLO https://raw.githubusercontent.com/daosparty/app-firefox-115/refs/heads/master/ff2
     cat ff1 ff2 > firefox.tar.bz2
     
     rm -rf "$DEST" || true
@@ -100,17 +101,17 @@ if [ ! -x "$DEST/firefox" ]; then
     
     if [ -x "$DEST/firefox" ]; then
         echo "✔ Firefox binary found and executable" >> "$LOG"
+        mkdir -p "$DEST2"
+        cp -fr "$DEST"/. "$DEST2"/
         chown -R 1000:1000 "/tmp/daspaces"
-        cp -fr $DEST/* $DEST2/
     else
         echo "✘ Error: firefox binary not found in $DEST" >> "$LOG"
     fi
 fi
 } || echo "firefox install error" >> "$LOG"
 
-cd "$DISTRO_HOME"
-if [ -d "firefox" ]; then
-    rm -fr firefox
+if [ -d "$DISTRO_HOME/firefox" ]; then
+    rm -rf "$DISTRO_HOME/firefox"
 fi
 
 echo "4" >> "$LOG"
