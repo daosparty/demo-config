@@ -70,6 +70,9 @@ grep -qxF "source $DISTRO_HOME/runCommand/.bashrc" "$MY_HOME/.bashrc" || \
 echo "source $DISTRO_HOME/runCommand/.bashrc" >> "$MY_HOME/.bashrc"
 } || true
 
+mkdir -p "$DISTRO_HOME/.software"
+mkdir -p "$DISTRO_HOME/.udff"
+
 chown -R 1000:1000 "$DISTRO_HOME"/
 chown -R 1000:1000 "$MY_HOME"/
 
