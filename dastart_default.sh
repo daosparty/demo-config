@@ -83,7 +83,8 @@ mv  wqy-microhei.ttc /usr/share/fonts/truetype/wqy/
 
 # install firefox, if it's not exists
 {
-DEST="/tmp/daspaces/software/firefox"
+# DEST="/tmp/daspaces/software/firefox"
+DEST="$DISTRO_HOME/.software/firefox"
 if [ ! -x "$DEST/firefox" ]; then
     cd "$DISTRO_HOME"
     mkdir firefox
