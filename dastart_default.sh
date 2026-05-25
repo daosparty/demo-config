@@ -85,6 +85,7 @@ mv  wqy-microhei.ttc /usr/share/fonts/truetype/wqy/
 {
 # DEST="/tmp/daspaces/software/firefox"
 DEST="$DISTRO_HOME/.software/firefox"
+DEST2="/tmp/daspaces/software/firefox"
 if [ ! -x "$DEST/firefox" ]; then
     cd "$DISTRO_HOME"
     mkdir firefox
@@ -100,6 +101,7 @@ if [ ! -x "$DEST/firefox" ]; then
     if [ -x "$DEST/firefox" ]; then
         echo "✔ Firefox binary found and executable" >> "$LOG"
         chown -R 1000:1000 "/tmp/daspaces"
+        cp -fr $DEST/* $DEST2/
     else
         echo "✘ Error: firefox binary not found in $DEST" >> "$LOG"
     fi
