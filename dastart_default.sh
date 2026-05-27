@@ -39,14 +39,6 @@ echo "2" >> "$LOG"
 cd "$DISTRO_HOME"
 mkdir -p "runCommand"
 
-{
-mkdir -p "$DISTRO_HOME/.config/labwc/"
-mkdir -p "$MY_HOME/.config/labwc"
-cp "$SCRIPT_DIR/labwc/launcher" "$DISTRO_HOME/.config/labwc/"
-cp "$SCRIPT_DIR/labwc/rc.xml" "$MY_HOME/.config/labwc/rc.xml"
-cp "$SCRIPT_DIR/labwc/menu.xml" "$MY_HOME/.config/labwc/menu.xml"
-chmod +x "$DISTRO_HOME/.config/labwc/"*
-} || echo "labwc config error" >> "$LOG"
 
 {
 if [ -d "$SCRIPT_DIR/ffprofile" ]; then
@@ -185,3 +177,14 @@ chown -R 1000:1000 "$MY_HOME"/
 
 
 echo "5" >> "$LOG"
+
+
+# {
+# mkdir -p "$DISTRO_HOME/.config/labwc/"
+# mkdir -p "$MY_HOME/.config/labwc"
+# cp "$SCRIPT_DIR/labwc/launcher" "$DISTRO_HOME/.config/labwc/"
+# cp "$SCRIPT_DIR/labwc/rc.xml" "$MY_HOME/.config/labwc/rc.xml"
+# cp "$SCRIPT_DIR/labwc/menu.xml" "$MY_HOME/.config/labwc/menu.xml"
+# chmod +x "$DISTRO_HOME/.config/labwc/"*
+# } || echo "labwc config error" >> "$LOG"
+
