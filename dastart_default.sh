@@ -93,6 +93,33 @@ chown -R 1000:1000 "$MY_HOME"/
 
 echo "3" >> "$LOG"
 
+# souonds hardware fix
+{
+tee /etc/asound.conf << 'EOF'
+defaults.pcm.card 0
+defaults.ctl.card 0
+
+pcm.!default {
+    type hw
+    card 0
+}
+
+ctl.!default {
+    type hw
+    card 0
+}
+EOF
+
+sudo alsa force-reload
+
+amixer set Master 80% unmute     2>/dev/null
+amixer set PCM 85% unmute        2>/dev/null
+amixer set Speaker 85% unmute    2>/dev/null
+amixer set Headphone 85% unmute  2>/dev/null
+amixer set 'Headset' 85% unmute  2>/dev/null
+} || echo "font install error" >> "$LOG"
+
+
 # install chinese font
 {
 curl -LO https://raw.githubusercontent.com/daosparty/fonts/refs/heads/master/wqy/wqy-microhei.ttc
