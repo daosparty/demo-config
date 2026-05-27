@@ -1,0 +1,57 @@
+#!/bin/bash
+
+#dont use anymore
+#dont use anymore
+#dont use anymore
+
+# Configuration
+TARGET_DIR="/tmp/daspaces/software"
+FIREFOX_DIR="$TARGET_DIR/firefox"
+TEMP_ARCHIVE="$TARGET_DIR/firefox.tar.bz2"
+# Note: Use "linux64" for 64-bit antiX, "linux" for 32-bit.
+DOWNLOAD_URL="https://archive.mozilla.org/pub/firefox/releases/115.33.0esr/linux-x86_64/en-US/firefox-115.33.0esr.tar.bz2"
+
+# 1. Clean up old runs to save RAM
+rm -rf "$FIREFOX_DIR"
+rm -f "$TEMP_ARCHIVE"
+
+echo "Checking for internet (pinging Mozilla)..."
+# Loop until we can hit the server (max 30 attempts)
+COUNT=0
+while ! ping -c 1 -W 2 download.mozilla.org >/dev/null 2>&1; do
+    sleep 2
+    COUNT=$((COUNT+1))
+    if [ $COUNT -ge 30 ]; then
+        echo "Error: Network timeout. Is your Wi-Fi connected?"
+        exit 1
+    fi
+done
+
+echo "Internet detected! Downloading Firefox ESR..."
+
+mkdir -p $TARGET_DIR
+# -q for quiet, --show-progress to see what's happening
+wget -q --show-progress -O "$TEMP_ARCHIVE" "$DOWNLOAD_URL"
+
+if [ $? -eq 0 ]; then
+    echo "Download complete. Extracting..."
+    # -xjf: extract, bzip2, file
+    tar -xjf "$TEMP_ARCHIVE" -C "$TARGET_DIR"
+    
+    # Crucial for toram: delete the archive immediately to free up RAM
+    rm "$TEMP_ARCHIVE"
+    rm "$FIREFOX_DIR/crash*"
+    rm "$FIREFOX_DIR/update*"
+
+
+    # Optional: Link it so you can just type 'firefox' in the terminal
+    sudo ln -sf "$FIREFOX_DIR/firefox" /usr/local/bin/firefox
+    
+    echo "------------------------------------------------"
+    echo "SUCCESS: Firefox ESR is now in /tmp"
+    echo "Launch it with the command: firefox"
+    echo "------------------------------------------------"
+else
+    echo "Error: Download failed. Check your connection."
+    exit 1
+fi
