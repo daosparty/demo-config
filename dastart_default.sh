@@ -55,19 +55,34 @@ if [ -d "$SCRIPT_DIR/ffprofile" ]; then
 fi
 } || echo "ffprofile move error" >> "$LOG"
 
+##### .runCommand section
 {
-cp "$SCRIPT_DIR/runCommand/"* "$DISTRO_HOME/runCommand/"
-chmod +x "$DISTRO_HOME/runCommand/"*
+if [ -d "$DISTRO_HOME/.runCommand" ]; then
+    if [ -d "$DISTRO_HOME/runCommand" ]; then
+        cp -a "$DISTRO_HOME/runCommand/." "$DISTRO_HOME/.runCommand/"
+        rm -fr "$DISTRO_HOME/runCommand/"
+    fi
+else
+    if [ -d "$DISTRO_HOME/runCommand" ]; then
+        mv "$DISTRO_HOME/runCommand" "$DISTRO_HOME/.runCommand"
+    else
+        mkdir -p "$DISTRO_HOME/.runCommand"
+    fi
+fi
 
-cat > "$DISTRO_HOME/runCommand/.bashrc" <<EOF
-export PATH=\$PATH:$DISTRO_HOME/runCommand
+cp -a "$SCRIPT_DIR/runCommand/." "$DISTRO_HOME/.runCommand/"
+chmod +x "$DISTRO_HOME/.runCommand/"*
+
+cat > "$DISTRO_HOME/.runCommand/.bashrc" <<EOF
+export PATH=\$PATH:$DISTRO_HOME/.runCommand
 cd /home/daos
 EOF
+
 } || echo "runCommand combine error" >> "$LOG"
 
 {
-grep -qxF "source $DISTRO_HOME/runCommand/.bashrc" "$MY_HOME/.bashrc" || \
-echo "source $DISTRO_HOME/runCommand/.bashrc" >> "$MY_HOME/.bashrc"
+grep -qxF "source $DISTRO_HOME/.runCommand/.bashrc" "$MY_HOME/.bashrc" || \
+echo "source $DISTRO_HOME/.runCommand/.bashrc" >> "$MY_HOME/.bashrc"
 } || true
 
 mkdir -p "$DISTRO_HOME/.software"
