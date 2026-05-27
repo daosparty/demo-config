@@ -117,7 +117,7 @@ amixer set PCM 85% unmute        2>/dev/null
 amixer set Speaker 85% unmute    2>/dev/null
 amixer set Headphone 85% unmute  2>/dev/null
 amixer set 'Headset' 85% unmute  2>/dev/null
-} || echo "font install error" >> "$LOG"
+} || echo "souonds config error" >> "$LOG"
 
 
 # install chinese font
