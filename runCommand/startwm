@@ -1,0 +1,24 @@
+# 3. AUTO-START GUI ON TTY1
+# Bridges the gap between your custom init auto-login and Labwc (Wayland)
+if [ -z "$WAYLAND_DISPLAY" ] && [ "$(tty)" = "/dev/tty1" ]; then
+  
+  # A. Setup the volatile Wayland Runtime Directory securely in RAM
+  export XDG_RUNTIME_DIR="/tmp/daos/xdg_runtime_$(id -u)"
+  if [ ! -d "$XDG_RUNTIME_DIR" ]; then
+      mkdir -p "$XDG_RUNTIME_DIR"
+      chmod 0700 "$XDG_RUNTIME_DIR"
+  fi
+
+  # FIX 1: Use the correct libseat backend variables
+  export LIBSEAT_BACKEND=seatd
+  export SEATD_SOCK=/run/seatd.sock
+
+  export MOZ_ENABLE_WAYLAND=1
+  export ELECTRON_OZONE_PLATFORM_HINT=wayland
+
+  # FIX 2: Run gdb via a clean dbus-run-session wrappers or cleanly separated 
+  # dbus-run-session gdb dawm
+  
+  # Alternative if you don't want DBUS right now:
+  gdb dawm
+fi
