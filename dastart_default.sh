@@ -174,7 +174,6 @@ chown -R 1000:1000 "$MY_HOME"/
 
 echo "5" >> "$LOG"
 
-
 # {
 # mkdir -p "$DISTRO_HOME/.config/labwc/"
 # mkdir -p "$MY_HOME/.config/labwc"
