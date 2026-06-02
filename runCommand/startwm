@@ -20,5 +20,5 @@ if [ -z "$WAYLAND_DISPLAY" ] && [ "$(tty)" = "/dev/tty1" ]; then
   # dbus-run-session gdb dawm
   
   # Alternative if you don't want DBUS right now:
-  /home/da/dawm
+  /home/da/dawm &
 fi
