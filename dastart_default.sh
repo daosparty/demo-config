@@ -150,13 +150,14 @@ fi
 echo "4" >> "$LOG"
 
 {
+    apt install -y git xclip
+} || echo  "apt install git error" >> "$LOG"
+
+
+{
 curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux-x86_64.tar.gz
 tar xzf nvim-linux-x86_64.tar.gz
 } || true
-
-{
-    apt install -y git curl xclip ripgrep fd-find
-} || echo  "apt install git error" >> "$LOG"
 
 {
 if git clone --depth=1 https://github.com/LazyVim/starter "$MY_HOME/.config/nvim"; then
