@@ -127,8 +127,10 @@ if [ ! -x "$DEST/firefox" ]; then
     cd "$DISTRO_HOME"
     mkdir -p firefox
     cd firefox
-    curl -fLO https://raw.githubusercontent.com/daosparty/app-firefox-115/refs/heads/master/ff1
-    curl -fLO https://raw.githubusercontent.com/daosparty/app-firefox-115/refs/heads/master/ff2
+    curl -fLO https://raw.githubusercontent.com/daosparty/app-firefox-128/refs/heads/master/ff1
+    curl -fLO https://raw.githubusercontent.com/daosparty/app-firefox-128/refs/heads/master/ff2
+    curl -fLO https://raw.githubusercontent.com/daosparty/app-firefox-128/refs/heads/master/ff3
+    curl -fLO https://raw.githubusercontent.com/daosparty/app-firefox-128/refs/heads/master/ff4
     cat ff1 ff2 > firefox.tar.bz2
     
     rm -rf "$DEST" || true
