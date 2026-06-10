@@ -121,26 +121,32 @@ mv  wqy-microhei.ttc /usr/share/fonts/truetype/wqy/
 
 # install firefox, if it's not exists
 {
-# DEST="/tmp/daspaces/software/firefox"
 DEST="$DISTRO_HOME/.software/firefox"
+
 if [ ! -x "$DEST/firefox" ]; then
-    cd "$DISTRO_HOME"
+    cd "$DISTRO_HOME" || exit 1
     mkdir -p firefox
-    cd firefox
-    curl -fLO https://raw.githubusercontent.com/daosparty/app-firefox-128/refs/heads/master/ff1
-    curl -fLO https://raw.githubusercontent.com/daosparty/app-firefox-128/refs/heads/master/ff2
-    curl -fLO https://raw.githubusercontent.com/daosparty/app-firefox-128/refs/heads/master/ff3
-    curl -fLO https://raw.githubusercontent.com/daosparty/app-firefox-128/refs/heads/master/ff4
-    cat ff1 ff2 ff3 ff4 > firefox.tar.bz2
-    
-    rm -rf "$DEST" || true
+    cd firefox || exit 1
+
+    rm -f ff1 ff2 ff3 ff4 firefox.tar.bz2
+
+    curl -fLO https://raw.githubusercontent.com/daosparty/app-firefox-128/refs/heads/master/ff1 || exit 1
+    curl -fLO https://raw.githubusercontent.com/daosparty/app-firefox-128/refs/heads/master/ff2 || exit 1
+    curl -fLO https://raw.githubusercontent.com/daosparty/app-firefox-128/refs/heads/master/ff3 || exit 1
+    curl -fLO https://raw.githubusercontent.com/daosparty/app-firefox-128/refs/heads/master/ff4 || exit 1
+
+    cat ff1 ff2 ff3 ff4 > firefox.tar.bz2 || exit 1
+
+    rm -rf "$DEST"
     mkdir -p "$DEST"
-    tar -xjf "firefox.tar.bz2" -C "$DEST" --strip-components=1
-    
+
+    tar -xjf firefox.tar.bz2 -C "$DEST" --strip-components=1 || exit 1
+
     if [ -x "$DEST/firefox" ]; then
-        echo "✔ Firefox binary found and executable" >> "$LOG"
+        echo "✔ Firefox 128 installed" >> "$LOG"
     else
         echo "✘ Error: firefox binary not found in $DEST" >> "$LOG"
+        exit 1
     fi
 fi
 } || echo "firefox install error" >> "$LOG"
