@@ -131,7 +131,7 @@ if [ ! -x "$DEST/firefox" ]; then
     curl -fLO https://raw.githubusercontent.com/daosparty/app-firefox-128/refs/heads/master/ff2
     curl -fLO https://raw.githubusercontent.com/daosparty/app-firefox-128/refs/heads/master/ff3
     curl -fLO https://raw.githubusercontent.com/daosparty/app-firefox-128/refs/heads/master/ff4
-    cat ff1 ff2 > firefox.tar.bz2
+    cat ff1 ff2 ff3 ff4 > firefox.tar.bz2
     
     rm -rf "$DEST" || true
     mkdir -p "$DEST"
