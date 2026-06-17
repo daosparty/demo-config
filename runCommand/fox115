@@ -117,8 +117,8 @@ if [ -d "$PROFILE_PATH" ]; then
         echo "✔ Valid Firefox profile + git repo"
 
         cd "$PROFILE_PATH"
-        git fetch
-        git merge --ff-only
+		git fetch origin master
+		git merge --ff-only FETCH_HEAD
 
     else
         echo "❌ Existing folder is NOT a valid Firefox git profile"
