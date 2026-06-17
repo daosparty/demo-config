@@ -14,7 +14,8 @@ PROFILE_BASE="/home/daos/.udff"
 PROFILE_CONFIG_BASE="/home/daos/.config/ffprofile"
 PROFILE_CONFIG="$PROFILE_CONFIG_BASE/$1"
 PROFILE_NAME="115-$1"
-PROFILE_PATH="$PROFILE_BASE/115-$PROFILE_NAME"
+PROFILE_PATH="$PROFILE_BASE/$PROFILE_NAME"
+TEMP_PATH="$PROFILE_BASE/udff115"
 
 
 # ---------------------------
@@ -66,7 +67,7 @@ is_git_repo() {
 # ---------------------------
 # 🔧 Check temp profile
 # ---------------------------
-if [ "$PROFILE_NAME" = "temp" ]; then
+if [ "$1" = "temp" ]; then
   if is_profile_in_use "$PROFILE_PATH"; then
       echo "❌ Profile is currently in use!"
       exit 1
@@ -90,7 +91,6 @@ then
 	echo "repos url not set in profile config file"
 	exit
 fi
-TEMP_PATH="$PROFILE_BASE/udff2"
 
 mkdir -p "$PROFILE_BASE"
 cd "$PROFILE_BASE"
