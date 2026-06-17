@@ -12,10 +12,11 @@ fi
 BIN_PATH="/home/daos/.software/firefox115/firefox"
 PROFILE_BASE="/home/daos/.udff"
 PROFILE_CONFIG_BASE="/home/daos/.config/ffprofile"
-PROFILE_CONFIG="$PROFILE_CONFIG_BASE/$1"
 PROFILE_NAME="115-$1"
+PROFILE_CONFIG="$PROFILE_CONFIG_BASE/$PROFILE_NAME"
 PROFILE_PATH="$PROFILE_BASE/$PROFILE_NAME"
-TEMP_PATH="$PROFILE_BASE/udff115"
+REPOS_NAME="udff115"
+TEMP_PATH="$PROFILE_BASE/$REPOS_NAME"
 
 
 # ---------------------------
@@ -86,11 +87,12 @@ fi
 
 # REPO_URL=$("$PROFILE_CONFIG")
 source "$PROFILE_CONFIG"
-if [ -z "$REPO_URL" ]
+if [ -z "$UU1" ]
 then
 	echo "repos url not set in profile config file"
 	exit
 fi
+REPO_URL="https://$UU1@github.com/$DD1/$REPOS_NAME.git"
 
 mkdir -p "$PROFILE_BASE"
 cd "$PROFILE_BASE"
