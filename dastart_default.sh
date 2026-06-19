@@ -120,40 +120,48 @@ mv  wqy-microhei.ttc /usr/share/fonts/truetype/wqy/
 } || echo "font install error" >> "$LOG"
 
 # install firefox, if it's not exists
-{
-DEST="$DISTRO_HOME/.software/firefox"
+install_firefox() {
+    local DEST="$DISTRO_HOME/.software/firefox"
+    local TEMPPATH="/tmp/firefox"
 
-if [ ! -x "$DEST/firefox" ]; then
-    cd "$DISTRO_HOME" || exit 1
-    mkdir -p firefox
-    cd firefox || exit 1
-
-    rm -f ff1 ff2 ff3 ff4 firefox.tar.bz2
-
-    curl -fLO https://raw.githubusercontent.com/daosparty/app-firefox-128/refs/heads/master/ff1 || exit 1
-    curl -fLO https://raw.githubusercontent.com/daosparty/app-firefox-128/refs/heads/master/ff2 || exit 1
-    curl -fLO https://raw.githubusercontent.com/daosparty/app-firefox-128/refs/heads/master/ff3 || exit 1
-    curl -fLO https://raw.githubusercontent.com/daosparty/app-firefox-128/refs/heads/master/ff4 || exit 1
-
-    cat ff1 ff2 ff3 ff4 > firefox.tar.bz2 || exit 1
+    # Check if Firefox is already installed and executable
+    if [ -x "$DEST/firefox" ]; then
+        return 0
+    fi
 
     rm -rf "$DEST"
-    mkdir -p "$DEST"
+    mkdir -p "$DEST" || return 1
+    mkdir -p "$TEMPPATH" || return 1
+    cd "$TEMPPATH" || return 1
+    
+    # Clean up any old partial downloads
+    rm -f ff1 ff2 ff3 ff4 firefox.tar.bz2
 
-    tar -xjf firefox.tar.bz2 -C "$DEST" --strip-components=1 || exit 1
+    # Download the split archive components
+    curl -fLO https://raw.githubusercontent.com/daosparty/app-firefox-128/refs/heads/master/ff1 || return 1
+    curl -fLO https://raw.githubusercontent.com/daosparty/app-firefox-128/refs/heads/master/ff2 || return 1
+    curl -fLO https://raw.githubusercontent.com/daosparty/app-firefox-128/refs/heads/master/ff3 || return 1
+    curl -fLO https://raw.githubusercontent.com/daosparty/app-firefox-128/refs/heads/master/ff4 || return 1
 
+    # Reassemble the tarball
+    cat ff1 ff2 ff3 ff4 > firefox.tar.bz2 || return 1
+
+    # Extract the tarball
+    tar -xjf firefox.tar.bz2 -C "$DEST" --strip-components=1 || return 1
+
+    # Clean up temp folder completely
+    rm -rf "$TEMPPATH"
+
+    # Verify the installation was successful
     if [ -x "$DEST/firefox" ]; then
         echo "✔ Firefox 128 installed" >> "$LOG"
+        return 0
     else
         echo "✘ Error: firefox binary not found in $DEST" >> "$LOG"
-        exit 1
+        return 1
     fi
-fi
-} || echo "firefox install error" >> "$LOG"
-
-if [ -d "$DISTRO_HOME/firefox" ]; then
-    rm -rf "$DISTRO_HOME/firefox"
-fi
+}
+install_firefox || echo "firefox install error" >> "$LOG"
 
 echo "4" >> "$LOG"
 
